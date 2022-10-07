@@ -14,6 +14,6 @@ namespace EmployeeDetailsAPI.Models
         public string Actions { get; set; }
         public long ActionEmpId { get; set; }
 
-        public virtual AspNetUser User { get; set; }
+        //public virtual AspNetUser User { get; set; }
     }
 }
