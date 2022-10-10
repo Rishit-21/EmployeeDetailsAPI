@@ -158,23 +158,16 @@ namespace EmployeeDetailsAPI.Repository
                 await _context.SaveChangesAsync();
             }
         }
-        public async Task DeleteEmp( long Id)
+        public async Task<long> DeleteEmp( long Id)
         {
            
             var emp = await _context.Employees.FindAsync(Id);
            
             if (emp != null)
             {
+                if (emp.status != "0")
+                {
 
-                //var userSoftDelete = new Employee()
-                //{
-
-                //    EmpId=Id,
-                //    FirstName=emp.FirstName,
-                //    LastName=emp.LastName,
-                //    JobTitle=emp.JobTitle,
-                //    status = "0",
-                //};
                 emp.status = "0";
 
                
@@ -183,10 +176,18 @@ namespace EmployeeDetailsAPI.Repository
               
                 await _context.SaveChangesAsync();
                 await _accountRepository.Userlogs("Employee Deleted",Id);
+                    return emp.EmpId;
+                }
+                return 0;
+               
+
+               
                
             }
+            return 0;
+
         }
 
-     
+
     }
 }

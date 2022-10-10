@@ -61,8 +61,8 @@ namespace EmployeeDetailsAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEmp([FromRoute] long Id)
         {
-            await _employee.DeleteEmp(Id);
-            return Ok();
+          long id=  await _employee.DeleteEmp(Id);
+            return Ok(id);
         }
 
   
