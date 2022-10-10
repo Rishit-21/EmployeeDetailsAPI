@@ -22,9 +22,6 @@ namespace EmployeeDetailsAPI.Models
         public string CityName { get; set; }
         public string AddType { get; set; }
         public int? PinCode { get; set; }
-        //public virtual EmpCityTbl City { get; set; }
-        //public virtual EmpCountryTbl Country { get; set; }
-        //public virtual Employee Emp { get; set; }
-        //public virtual EmpStateTbl State { get; set; }
+       
     }
 }

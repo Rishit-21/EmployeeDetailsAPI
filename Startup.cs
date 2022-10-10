@@ -83,7 +83,7 @@ namespace EmployeeDetailsAPI
             });
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
-            //services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaims>();
+           
             services.AddScoped<IUserService, UserService>();
         }
 

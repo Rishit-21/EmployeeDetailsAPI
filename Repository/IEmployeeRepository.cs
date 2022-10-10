@@ -11,6 +11,6 @@ namespace EmployeeDetailsAPI.Repository
         Task<long> AddEmployee(AddEmployeeModel employee);
         Task EditEmployee(long Id, JsonPatchDocument employee);
         Task<long> DeleteEmp( long Id);
-        //Task EditEmployee(long id, Employee employee);
+   
     }
 }

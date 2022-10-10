@@ -18,11 +18,10 @@ namespace EmployeeDetailsAPI.Models
         public AddEmployeeModel()
         {
             AddAddresses = new HashSet<AddAddresscs>();
-           // Addressess = new HashSet<MainAddress>();
+          
         }
         [NotMapped]
         public virtual ICollection<AddAddresscs> AddAddresses { get; set; }
-        //[NotMapped]
-        //public virtual ICollection<MainAddress> Addressess { get; set; }
+        
     }
 }

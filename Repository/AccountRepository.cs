@@ -45,7 +45,7 @@ namespace EmployeeDetailsAPI.Repository
             _context = context;
        
         }
-        string userId;
+      
         public async Task<IdentityResult> signUpAsync(SignUpModel signUpModel,bool RoleAssignFlag)
         {
             var user = new ApplicationUser()
