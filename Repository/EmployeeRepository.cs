@@ -46,19 +46,12 @@ namespace EmployeeDetailsAPI.Repository
             if (!AddressFlag)
             {
                 var employee = _context.Employees.FromSqlRaw<Employee>("SelectEmployeeById {0}", Id).ToList().FirstOrDefault();
-                //var emp = new Employee()
-                //{
-                //    EmpId = employee.EmpId,
-                //    FirstName = employee.FirstName,
-                //    LastName = employee.LastName,
-                //    JobTitle = employee.JobTitle,
-                //    status = employee.status
-                //};
+           
                 return employee;
             }
             else
             {
-                //var empdetils =  _context.Employees.FromSqlRaw<Employee>("selectemployeebyId {0}", Id).ToList().FirstOrDefault();
+               
                 SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
               
@@ -112,7 +105,7 @@ namespace EmployeeDetailsAPI.Repository
             }
         }
 
-        public async Task<long> AddEmployee(Employee employee)
+        public async Task<long> AddEmployee(AddEmployeeModel employee)
         {
             var emp = new Employee()
             {
@@ -122,7 +115,7 @@ namespace EmployeeDetailsAPI.Repository
                 status=  "1"
             };
             emp.Addresses = new List<Address>();
-            foreach (var addDetails in employee.Addresses)
+            foreach (var addDetails in employee.AddAddresses)
             {
                 emp.Addresses.Add(new Address()
                 {
@@ -133,7 +126,6 @@ namespace EmployeeDetailsAPI.Repository
                     CityId = addDetails.CityId,
                     PinCode = addDetails.PinCode,
                     AddType = addDetails.AddType,
-
                 });
             
             }
@@ -168,8 +160,6 @@ namespace EmployeeDetailsAPI.Repository
 
                
                 _context.Entry(emp).State = EntityState.Modified;
-              
-              
                 await _context.SaveChangesAsync();
                 await _accountRepository.Userlogs("Employee Deleted",Id);
                     return emp.EmpId;

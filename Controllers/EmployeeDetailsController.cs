@@ -72,7 +72,7 @@ namespace EmployeeDetailsAPI.Controllers
         }
         [HttpPost("")]
 
-        public async Task<IActionResult> AddEmployee([FromBody] Employee employee)
+        public async Task<IActionResult> AddEmployee([FromBody] AddEmployeeModel employee)
         {
             long empId;
 
