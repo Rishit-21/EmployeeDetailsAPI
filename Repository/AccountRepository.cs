@@ -20,30 +20,30 @@ namespace EmployeeDetailsAPI.Repository
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
-        private readonly RoleManager<IdentityRole> _roleManager;
+  
         private readonly IUserService _userService;
       
         
         private readonly EmployeeDetailsContext _context;
-        //private readonly IHttpContextAccessor _httpContext;
+      
 
         public AccountRepository(UserManager<ApplicationUser> userManager, 
             SignInManager<ApplicationUser> signInManager,
             IConfiguration configuration,
-            RoleManager<IdentityRole> roleManager,
+           
             IUserService userService,
             EmployeeDetailsContext context
-            //IHttpContextAccessor httpContext
+         
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
-            _roleManager = roleManager;
+           
            _userService = userService;
         
             _context = context;
-          // _httpContext = httpContext;
+       
         }
         string userId;
         public async Task<IdentityResult> signUpAsync(SignUpModel signUpModel,bool RoleAssignFlag)
@@ -106,7 +106,7 @@ namespace EmployeeDetailsAPI.Repository
                 signingCredentials: new SigningCredentials(authSignInKey, SecurityAlgorithms.HmacSha256Signature)
                 );
 
-            //var userid = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
            
 
             return new JwtSecurityTokenHandler().WriteToken(token);

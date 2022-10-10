@@ -14,31 +14,64 @@ namespace EmployeeDetailsAPI.Controllers
     public class EmployeeDetailsController : ControllerBase
     {
         private readonly IEmployeeRepository _employee;
-        private readonly IAccountRepository _accountRepository;
-        private readonly IUserService _userService;
 
-        public EmployeeDetailsController(IEmployeeRepository employee,IAccountRepository accountRepository )
+
+        public EmployeeDetailsController(IEmployeeRepository employee)
         {
             _employee = employee;
-           _accountRepository = accountRepository;
-           
+
         }
-      
+
         [HttpGet("{Id}/{AddressFlag}")]
-       [AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> GetEmployeeByID([FromRoute] int Id, [FromRoute] bool AddressFlag)
         {
 
-            var employee = await _employee.GetEmployeeById(Id, AddressFlag);
-            if (employee == null)
-            {
-                return NotFound();
-            }
 
-            return Ok(employee);
+            var employee = await _employee.GetEmployeeById(Id, AddressFlag);
+            if (AddressFlag)
+            {
+                var emp = new
+                {
+                    EmpId = employee.EmpId,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    JobTitle = employee.JobTitle,
+                    status = employee.status,
+                    Addressess=employee.Addressess
+                    
+
+                };
+                if (emp == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(emp);
+            }
+            else
+            {
+                var emp = new 
+                {
+                    EmpId = employee.EmpId,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    JobTitle = employee.JobTitle,
+                    status = employee.status
+
+                };
+                if (emp == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(emp);
+
+            }
+        
         }
         [HttpPost("")]
-        
+
         public async Task<IActionResult> AddEmployee([FromBody] Employee employee)
         {
             long empId;
@@ -61,11 +94,11 @@ namespace EmployeeDetailsAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEmp([FromRoute] long Id)
         {
-          long id=  await _employee.DeleteEmp(Id);
+            long id = await _employee.DeleteEmp(Id);
             return Ok(id);
         }
 
-  
+
     }
 
 }

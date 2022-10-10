@@ -8,11 +8,7 @@ namespace EmployeeDetailsAPI.Models
 {
     public partial class Employee
     {
-        public Employee()
-        {
-            Addresses = new HashSet<Address>();
-            Addressess = new HashSet<MainAddress>();
-        }
+      
 
         public long EmpId { get; set; }
         public string FirstName { get; set; }
@@ -21,6 +17,11 @@ namespace EmployeeDetailsAPI.Models
 
         public string status { get; set; }
 
+        public Employee()
+        {
+            Addresses = new HashSet<Address>();
+            Addressess = new HashSet<MainAddress>();
+        }
         public virtual ICollection<Address> Addresses { get; set; }
         [NotMapped]
         public virtual ICollection<MainAddress> Addressess { get; set; }

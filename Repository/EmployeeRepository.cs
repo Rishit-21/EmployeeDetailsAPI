@@ -20,12 +20,12 @@ namespace EmployeeDetailsAPI.Repository
     {
         private readonly EmployeeDetailsContext _context;
         private readonly IConfiguration _configuration;
-        private readonly UserManager<ApplicationUser> _userManager;
+       
         private readonly IAccountRepository _accountRepository;
 
         public EmployeeRepository(EmployeeDetailsContext context,
             IConfiguration configuration,
-            UserManager<ApplicationUser> userManager,
+           
             IAccountRepository accountRepository
             
             )
@@ -33,7 +33,7 @@ namespace EmployeeDetailsAPI.Repository
 
             _context = context;
             _configuration = configuration;
-            _userManager = userManager;
+           
          _accountRepository = accountRepository;
         }
 
@@ -42,10 +42,18 @@ namespace EmployeeDetailsAPI.Repository
         public async Task<Employee> GetEmployeeById(int Id, bool AddressFlag)
         {
 
+
             if (!AddressFlag)
             {
                 var employee = _context.Employees.FromSqlRaw<Employee>("SelectEmployeeById {0}", Id).ToList().FirstOrDefault();
-
+                //var emp = new Employee()
+                //{
+                //    EmpId = employee.EmpId,
+                //    FirstName = employee.FirstName,
+                //    LastName = employee.LastName,
+                //    JobTitle = employee.JobTitle,
+                //    status = employee.status
+                //};
                 return employee;
             }
             else
@@ -53,14 +61,14 @@ namespace EmployeeDetailsAPI.Repository
                 //var empdetils =  _context.Employees.FromSqlRaw<Employee>("selectemployeebyId {0}", Id).ToList().FirstOrDefault();
                 SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
-                //SqlConnection con =
+              
                 SqlCommand scm1 = new SqlCommand("SelectEmployeeByIdWithAdress", con);
                 con.Open();
-                //scm1.CommandType = System.Data.CommandType.StoredProcedure; 
+              
                 scm1.CommandType = CommandType.StoredProcedure;
                 scm1.Parameters.Add("@Id", SqlDbType.Int).Value = Id;
                 SqlDataReader sdr = scm1.ExecuteReader();
-                //DataTable dt = new DataTable();
+              
 
 
                 List<Employee> EmpWithAdd = new List<Employee>();
@@ -99,19 +107,9 @@ namespace EmployeeDetailsAPI.Repository
 
                   
                 }
-
-
-
                 con.Close();
-
-
                 return EmpWithAdd.FirstOrDefault();
-
             }
-
-
-
-
         }
 
         public async Task<long> AddEmployee(Employee employee)
@@ -144,8 +142,6 @@ namespace EmployeeDetailsAPI.Repository
             await _context.SaveChangesAsync();
             await _accountRepository.Userlogs("Employee Added",emp.EmpId);
             return emp.EmpId;
-
-
         }
 
         public async Task EditEmployee(long Id, JsonPatchDocument employee)
@@ -179,15 +175,10 @@ namespace EmployeeDetailsAPI.Repository
                     return emp.EmpId;
                 }
                 return 0;
-               
-
-               
-               
             }
-            return 0;
-
+              return 0;
+               
         }
-
 
     }
 }

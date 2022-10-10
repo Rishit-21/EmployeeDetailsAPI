@@ -15,12 +15,12 @@ namespace EmployeeDetailsAPI.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
-        private readonly IUserService _userService;
+       
 
-        public AccountController(IAccountRepository accountRepository, IUserService userService)
+        public AccountController(IAccountRepository accountRepository)
         {
             _accountRepository = accountRepository;
-            _userService = userService;
+           
         }
 
         [HttpPost("signup")]
@@ -46,12 +46,6 @@ namespace EmployeeDetailsAPI.Controllers
             return Ok(result);
         }
 
-        //[HttpGet("id")]
-        //public async Task<IActionResult> userId()
-        //{
-        //    var userid =   _userService.GetUserId();
-        //    return Ok(userid);
-
-        //}
+    
     }
 }
